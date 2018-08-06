@@ -1,7 +1,0 @@
-[all:vars]
-email=youremail@email.com
-
-[initialsetup]
-206.189.123.12 ssldomain=ansibletest4.theproofofsteak.com username=adrian password=ansibletest
-
-[nodes]
