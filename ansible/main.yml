@@ -1,0 +1,23 @@
+---
+# Carry out tasks on servers
+
+- name: configure and deploy new servers
+  hosts: nodes
+  remote_user: "{{ username | default(common_deploy_username) }}"
+  become: true
+  become_method: sudo
+  gather_facts: false
+  roles:
+    - tasks
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: copy results to local file
+      template: src=output.j2 dest="/tmp/node-deploy-results"
+
+    - name: output results
+      command: cat /tmp/node-deploy-results
+      register: cat
+    - debug: var=cat.stdout_lines

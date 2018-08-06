@@ -1,0 +1,8 @@
+[all:vars]
+email=youremail@email.com
+
+[initialsetup]
+yournode.yourdomain.com ssldomain=yournode.yourdomain.com username=yourusername password=userpassword
+
+[nodes]
+yournode.yourdomain.com ssldomain=yournode.yourdomain.com username=yourusername ansible_sudo_pass=userpassword

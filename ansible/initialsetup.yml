@@ -1,0 +1,32 @@
+---
+# Deploy servers
+
+- name: configure and deploy new servers
+  hosts: initialsetup
+  remote_user: root
+  gather_facts: false
+  vars:
+    common_logwatch_email: adrian@hungryturtlecode.com
+    common_deploy_username: deploy
+    common_deploy_password: 'xxx'
+    common_deploy_public_keys:
+      - ~/.ssh/id_rsa.pub
+    common_required_packages:
+      - ufw
+      - fail2ban
+      - unattended-upgrades
+      - logwatch
+      - apt-transport-https
+      - lsb-release
+      - curl
+    common_optional_packages:
+      - vim
+  pre_tasks:
+  - name: Install python2 for Ansible
+    raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python2.7 python-minimal)"
+    register: output
+    changed_when: output.stdout != ""
+  - name: Gathering Facts
+    setup:
+  roles:
+    - default-setup
